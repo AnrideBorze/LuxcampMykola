@@ -7,10 +7,7 @@ public class EmployeeService {
     void printEmployees(){
         try {
             for (Employee employee: employees) {
-                System.out.println("The employer id is " + employee.id + ", name is " + employee.name +
-                        ", age " + employee.age + ", salary " +
-                        employee.salary + ", this month he fixed " + employee.fixedBugs +
-                        " bugs, and he has the " + employee.defaultBugRate + " bonus dollars for salary");
+                System.out.println(employee.toString());
             }
         }
         catch (NullPointerException e){
@@ -21,8 +18,9 @@ public class EmployeeService {
 
     double calculateSalaryAndBonus(){
         double sum = 0;
-        for (Employee employer: employees) {
-            sum+= employer.salary+ employer.defaultBugRate;
+        for (Employee employee : employees) {
+            sum+=employee.getTotalSalary();
+            System.out.println(sum);
         }
         return sum;
     }
@@ -50,11 +48,12 @@ public class EmployeeService {
         for (Employee employee:employees) {
             if(employee.name.equals(name)){
                 foundedEmployess[count]=employee;
+                count++;
             }
         }
         return foundedEmployess;    }
 
-    Employee[] sortByName() {
+    void sortByName() {
         String[] names = new String[employees.length];
         Employee[] employeesCopy = employees.clone();
         int count = 0;
@@ -75,23 +74,23 @@ public class EmployeeService {
                 }
             }
         }
-        return sortedEmployee;
+        employees = sortedEmployee;
     }
 
-    Employee[] sortByNameAndSalary(){
-        Employee[] sortedEmployee = sortByName();
-        for (int i =0; i< sortedEmployee.length;i++){
-            for (int j =1; j < sortedEmployee.length; j++){
-                if(sortedEmployee[i].name.equals(sortedEmployee[j].name)&&sortedEmployee[i].salary<sortedEmployee[j].salary){
-                    Employee employee = sortedEmployee[i];
-                    sortedEmployee[i] = sortedEmployee[j];
-                    sortedEmployee[j] = employee;
+    void  sortByNameAndSalary(){
+        sortByName();
+        for (int i =0; i< employees.length;i++){
+            for (int j =1; j < employees.length; j++){
+                if(employees[i].name.equals(employees[j].name)&&employees[i].salary<employees[j].salary){
+                    Employee employee = employees[i];
+                    employees[i] = employees[j];
+                    employees[j] = employee;
                 }
             }
         }
-        return  sortedEmployee;
 
     }
+
 
 
 
@@ -112,13 +111,41 @@ public class EmployeeService {
 
     Employee remove(long id){
         Employee removedEmployer = null;
-        for (int i =0; i< employees.length; i++){
-            if(employees[i].id == id){
+
+        int counter = 0;
+        for (int i =0; i< employees.length; i++) {
+            if (employees[i].id == id) {
                 removedEmployer = employees[i];
                 employees[i] = null;
+                counter = i;
             }
         }
+        int counter2 = 0;
+        int index =0;
+        Employee[] newEmployer = new Employee[employees.length-1];
+        for (Employee employee : employees) {
+            if(counter!=counter2){
+                newEmployer[index] = employee;
+                counter2++;
+                index++;
+            }
+            else {
+                counter2++;
+            }
+
+        }
+        employees=newEmployer;
+
 
         return  removedEmployer;
+    }
+
+    void add(Employee employee){
+        Employee[] newEmployer = new Employee[employees.length+1];
+        for (int i = 0; i < newEmployer.length-1; i++) {
+            newEmployer[i] = employees[i];
+        }
+        newEmployer[newEmployer.length-1] = employee;
+        employees = newEmployer;
     }
 }

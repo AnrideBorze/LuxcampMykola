@@ -1,44 +1,94 @@
+import java.util.Random.*;
+
+
 public class Employee {
 
 
-    public long id;
+    public int id;
     public String name;
     public int age;
     public double salary;
     boolean gender;
-    public int fixedBugs;
-    public int defaultBugRate;
+
 
     public Employee( ) {
 
     }
 
-    public Employee(long id, String name, int age, double salary, boolean gender, int fixedBugs, int defaultBugRate) {
+    public Employee(int id, String name, int age, double salary, boolean gender, int fixedBugs, int defaultBugRate) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.salary = salary;
         this.gender = gender;
-        this.fixedBugs = fixedBugs;
-        this.defaultBugRate = defaultBugRate;
-        bagsBonus(this);
+
     }
 
-
-    public void bagsBonus(Employee employee){
-        if(employee.fixedBugs==0){
-            employee.defaultBugRate= (int)(employee.salary*0.1);
-        }
-        else if(employee.fixedBugs<5){
-            employee.defaultBugRate= (int)(employee.salary*0.1);
-        }
-        else if(employee.fixedBugs>5&&employee.fixedBugs<10){
-            employee.defaultBugRate= (int)(employee.salary*0.2);
+    @Override
+    public String toString() {
+        if(gender){
+            return
+                    "id= " + id +
+                            ", name= " + name +
+                            ", age= " + age +
+                            ", salary= " + salary +
+                            ", gender= man";
         }
         else {
-            employee.defaultBugRate= (int)(employee.salary*0.25);
+            return  "id= " + id +
+                    ", name= " + name +
+                    ", age= " + age +
+                    ", salary= " + salary +
+                    ", gender= woman";
         }
+
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public double countFinalSalary(Employee employee){
+        return  0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public double getTotalSalary() {
+        return salary;
+    }
 }
