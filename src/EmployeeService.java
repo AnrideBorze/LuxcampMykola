@@ -20,7 +20,6 @@ public class EmployeeService {
         double sum = 0;
         for (Employee employee : employees) {
             sum+=employee.getTotalSalary();
-            System.out.println(sum);
         }
         return sum;
     }
@@ -107,7 +106,7 @@ public class EmployeeService {
                 employees[i] = employee;
             }
         }
-        return employee;}
+        return employer;}
 
     Employee remove(long id){
         Employee removedEmployer = null;
